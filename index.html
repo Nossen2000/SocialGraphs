@@ -3,258 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Web · Week 1</title>
+<title>The Web &middot; Week 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0c0e13;
-  --surface: #14171e;
-  --border: #252a35;
-  --text: #c8cdd8;
-  --text-dim: #6b7280;
-  --heading: #e8ecf4;
-  --accent: #5b8def;
-  --accent-dim: #2d4a7a;
-  --red: #ef6b6b;
-  --green: #6befa0;
-  --yellow: #efd96b;
+:root{
+  --bg:#0c0e13; --surface:#14171e; --border:#252a35;
+  --text:#c8cdd8; --dim:#6b7280; --heading:#e8ecf4;
+  --accent:#5b8def; --red:#ef6b6b; --green:#6befa0;
 }
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);
+  font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.7}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+.site-header{border-bottom:1px solid var(--border);padding:1.4rem 2rem;
+  display:flex;justify-content:space-between;align-items:baseline;
+  max-width:1100px;margin:0 auto}
+.site-title{font-family:'Space Grotesk',sans-serif;font-weight:700;
+  font-size:1.05rem;color:var(--heading);letter-spacing:-.02em}
+.site-nav{font-family:'Space Grotesk',sans-serif;font-size:.85rem}
+.site-nav a{color:var(--dim);text-decoration:none;margin-left:1.4rem}
+.site-nav a:hover{color:var(--accent)}
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 18px;
-  line-height: 1.7;
-}
+article{max-width:700px;margin:0 auto;padding:3rem 2rem 5rem}
+h1{font-family:'Space Grotesk',sans-serif;font-size:2.6rem;font-weight:700;
+  line-height:1.1;color:var(--heading);margin-bottom:.6rem;letter-spacing:-.03em}
+.subtitle{font-size:1.05rem;color:var(--dim);margin-bottom:2.5rem;font-style:italic}
+h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;
+  color:var(--heading);margin:3rem 0 1rem;letter-spacing:-.02em}
+p{margin-bottom:1.2rem}
+a{color:var(--accent)}
 
-.site-header {
-  border-bottom: 1px solid var(--border);
-  padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:2rem 0}
+.stat-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:1.1rem 1.2rem}
+.stat-card .number{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;
+  font-weight:700;color:var(--heading);line-height:1}
+.stat-card .label{font-size:.82rem;color:var(--dim);margin-top:.35rem}
 
-.site-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--heading);
-  letter-spacing: -0.02em;
-}
+figure{background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:1.4rem;margin:2rem 0}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:.85rem;color:var(--dim);margin-top:.9rem;line-height:1.5}
+.fig-title{font-family:'Space Grotesk',sans-serif;font-size:.9rem;
+  font-weight:700;color:var(--heading);margin-bottom:.9rem}
 
-.site-nav {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.85rem;
-  color: var(--text-dim);
-}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.78rem;
+  color:var(--dim);text-align:left;padding:.45rem .6rem;
+  border-bottom:1px solid var(--border)}
+td{padding:.35rem .6rem;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+td.name{color:var(--heading)}
+td.num{font-family:'Space Grotesk',sans-serif;font-weight:700;text-align:right}
 
-.site-nav a {
-  color: var(--text-dim);
-  text-decoration: none;
-  margin-left: 1.5rem;
-}
-.site-nav a:hover { color: var(--accent); }
+.pull{background:var(--surface);border-left:3px solid var(--accent);
+  padding:1rem 1.4rem;margin:2rem 0;border-radius:0 6px 6px 0;
+  font-style:italic}
+.pull p:last-child{margin-bottom:0}
 
-article {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 3rem 2rem 6rem;
-}
+footer{max-width:700px;margin:0 auto;padding:1.8rem 2rem 3rem;
+  border-top:1px solid var(--border);font-size:.85rem;color:var(--dim);
+  font-family:'Space Grotesk',sans-serif}
 
-h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--heading);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.03em;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: var(--text-dim);
-  margin-bottom: 2.5rem;
-  font-style: italic;
-}
-
-h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--heading);
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
-}
-
-p { margin-bottom: 1.2rem; }
-
-a { color: var(--accent); }
-
-.stat-row {
-  display: flex;
-  gap: 1.5rem;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-}
-
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.2rem 1.5rem;
-  flex: 1;
-  min-width: 140px;
-}
-
-.stat-card .number {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--heading);
-  line-height: 1;
-}
-
-.stat-card .label {
-  font-size: 0.85rem;
-  color: var(--text-dim);
-  margin-top: 0.3rem;
-}
-
-.chart-container {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin: 2rem 0;
-}
-
-.chart-container .chart-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-dim);
-  margin-bottom: 1rem;
-}
-
-canvas { display: block; width: 100% !important; }
-
-.rank-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  font-size: 0.95rem;
-}
-
-.rank-table th {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  text-align: left;
-  padding: 0.5rem 0.8rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.rank-table td {
-  padding: 0.4rem 0.8rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.rank-table tr:last-child td { border-bottom: none; }
-
-.rank-table .name { color: var(--heading); }
-.rank-table .num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  text-align: right;
-}
-
-.highlight {
-  background: var(--surface);
-  border-left: 3px solid var(--accent);
-  padding: 1rem 1.5rem;
-  margin: 2rem 0;
-  border-radius: 0 6px 6px 0;
-  font-style: italic;
-  color: var(--text);
-}
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-@media (max-width: 600px) {
-  h1 { font-size: 2rem; }
-  .stat-row { flex-direction: column; gap: 0.8rem; }
-  .two-col { grid-template-columns: 1fr; }
-  article { padding: 2rem 1.2rem 4rem; }
-}
-
-.island-list {
-  columns: 2;
-  column-gap: 2rem;
-  font-size: 0.9rem;
-  color: var(--text-dim);
-  margin: 1rem 0;
-  line-height: 1.9;
-}
-
-.network-viz {
-  width: 100%;
-  height: 500px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  margin: 2rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.network-viz canvas {
-  width: 100%;
-  height: 100%;
-}
-
-.viz-label {
-  position: absolute;
-  top: 0.8rem;
-  left: 1rem;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-}
-
-.morituri-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin: 2rem 0;
-  text-align: center;
-}
-
-.morituri-box svg { margin: 1rem auto; display: block; }
-
-footer {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 2rem;
-  border-top: 1px solid var(--border);
-  font-size: 0.85rem;
-  color: var(--text-dim);
-  font-family: 'Space Grotesk', sans-serif;
+@media(max-width:640px){
+  article{padding:2rem 1.2rem 3.5rem}
+  h1{font-size:1.9rem}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr;gap:1rem}
+  .site-header{padding:1.2rem}
 }
 </style>
 </head>
@@ -262,46 +82,33 @@ footer {
 
 <header class="site-header">
   <div class="site-title">The Web</div>
-  <nav class="site-nav">
-    <a href="#">Week 1</a>
-    <a href="#">About</a>
-  </nav>
+  <nav class="site-nav"><a href="#">Week 1</a><a href="#">About</a></nav>
 </header>
 
 <article>
 
-<h1>303 heroes, one Spider at the centre</h1>
-<p class="subtitle">Week 1 — Degree distributions and the shape of Wikipedia's Marvel universe</p>
+<h1>303 heroes, one spider at the centre</h1>
+<p class="subtitle">Week 1 &mdash; degree distributions and the shape of Wikipedia&rsquo;s Marvel universe</p>
 
 <div class="stat-row">
-  <div class="stat-card">
-    <div class="number">303</div>
-    <div class="label">characters</div>
-  </div>
-  <div class="stat-card">
-    <div class="number">1,784</div>
-    <div class="label">directed edges</div>
-  </div>
-  <div class="stat-card">
-    <div class="number">17</div>
-    <div class="label">isolates</div>
-  </div>
-  <div class="stat-card">
-    <div class="number">39.2%</div>
-    <div class="label">reciprocity</div>
-  </div>
+  <div class="stat-card"><div class="number">303</div><div class="label">characters</div></div>
+  <div class="stat-card"><div class="number">1,784</div><div class="label">directed edges</div></div>
+  <div class="stat-card"><div class="number">17</div><div class="label">isolates</div></div>
+  <div class="stat-card"><div class="number">39%</div><div class="label">reciprocity</div></div>
 </div>
 
-<p>The dataset is a snapshot of 303 characters from Wikipedia's <a href="https://en.wikipedia.org/wiki/Category:Marvel_Comics_superheroes">Category:Marvel Comics superheroes</a>, taken on 26 August 2026. An edge from A to B means the running text of A's Wikipedia article links to B's page. Not a navbox, not a sidebar — actual prose mentions. That distinction matters: template links would make every Avenger adjacent to every other Avenger, regardless of whether their articles actually reference each other.</p>
+<p>The dataset is a frozen snapshot of the 303 characters in Wikipedia&rsquo;s <a href="https://en.wikipedia.org/wiki/Category:Marvel_Comics_superheroes">Category:Marvel Comics superheroes</a>, taken on 26 August 2026. An edge from A to B means the running text of A&rsquo;s article links to B&rsquo;s page &mdash; prose mentions, not navboxes. That choice matters: navigation templates would make every Avenger adjacent to every other Avenger whether or not their articles say a word about each other.</p>
 
-<h2>Spider-Man pulls everything toward him</h2>
+<h2>Prominence and sprawl are different things</h2>
 
-<p>The single most striking feature of this network is Spider-Man's in-degree of 106 — meaning over a third of all 303 characters' articles link to his page. Hulk comes second at 64, then Wolverine at 60. The drop from first to second is almost as large as the drop from second to fifteenth. This is not a gradual ranking; it's a cliff with one character standing alone at the top.</p>
+<p>Spider-Man has an in-degree of 106. More than a third of the entire category links to him. Hulk is second at 64, Wolverine third at 60 &mdash; and the gap from first to second is nearly as large as the gap from second to fifteenth. This is not a gradual ranking. It is a cliff with one character standing on top of it.</p>
+
+<p>But look at who does the linking, and the cast changes almost completely.</p>
 
 <div class="two-col">
 <div>
-<table class="rank-table">
-<tr><th colspan="2">Most linked to (in-degree)</th></tr>
+<table>
+<tr><th colspan="2">Most linked to</th></tr>
 <tr><td class="name">Spider-Man</td><td class="num" style="color:var(--red)">106</td></tr>
 <tr><td class="name">Hulk</td><td class="num">64</td></tr>
 <tr><td class="name">Wolverine</td><td class="num">60</td></tr>
@@ -315,8 +122,8 @@ footer {
 </table>
 </div>
 <div>
-<table class="rank-table">
-<tr><th colspan="2">Most links out (out-degree)</th></tr>
+<table>
+<tr><th colspan="2">Links out the most</th></tr>
 <tr><td class="name">Betsy Braddock</td><td class="num" style="color:var(--green)">28</td></tr>
 <tr><td class="name">Cloak &amp; Dagger</td><td class="num">24</td></tr>
 <tr><td class="name">Adam Warlock</td><td class="num">22</td></tr>
@@ -331,149 +138,190 @@ footer {
 </div>
 </div>
 
-<p>The in-degree and out-degree top-10 lists are almost entirely different people. Spider-Man's in-degree of 106 makes him the character everyone mentions. But his out-degree is only 9 — his article is tightly focused. Betsy Braddock leads the out-degree ranking at 28: her long, sprawling article references X-Men, Captain Britain Corps, and Excalibur characters alike. She's the most prolific <em>linker</em>, not the most <em>linked-to</em>.</p>
+<p>Only three names appear in both lists. Spider-Man, linked by 106 articles, links out to just 9 &mdash; his own page is short and tightly written, and it does not need to establish his place in the universe. Betsy Braddock, who tops the out-degree ranking at 28, does not appear in the in-degree top twenty at all: her article is a sprawling one that touches the X-Men, Excalibur and the Captain Britain Corps in turn.</p>
 
-<div class="highlight">In-degree measures prominence: how many others reference you. Out-degree measures sprawl: how many others your article happens to mention. They're driven by different processes and produce different rankings. Mixing them into one undirected degree hides both stories.</div>
+<div class="pull"><p>In-degree measures prominence: how many others reference you. Out-degree measures sprawl: how much ground your own article covers. They are produced by different editorial processes, and collapsing them into one undirected number hides both.</p></div>
 
-<h2>The degree distributions</h2>
+<h2>The two distributions do not have the same shape</h2>
 
-<p>On a log–log plot, the in-degree distribution shows the characteristic heavy tail that network scientists look for. Most characters have very low in-degree (the median is 3), but the tail stretches to 106. The out-degree distribution is markedly more compressed: it tops out at 28, and the bulk of characters fall between 1 and 12. This asymmetry tells us the network has a few extremely prominent nodes but no correspondingly extreme "super-linker" — Wikipedia editors don't write articles that reference a hundred characters, even when those characters exist.</p>
+<p>Plotted on log&ndash;log axes, in-degree shows the long, thin tail you look for in a scale-free network: the median character is linked by 3 others, but the tail runs all the way to 106. Out-degree is a different animal. It stops at 28, and the bulk of the mass sits between 1 and 12 &mdash; a much more compressed range.</p>
 
-<div class="chart-container">
-  <div class="chart-title">In-degree distribution (log–log)</div>
-  <canvas id="inDegreeChart" height="280"></canvas>
-</div>
+<figure>\n<div class="fig-title">In-degree distribution, log&ndash;log</div>\n<svg viewBox="0 0 640 300" width="100%" preserveAspectRatio="xMidYMid meet">
+<line x1="62.0" y1="18" x2="62.0" y2="254" stroke="#252a35"/>
+<line x1="143.0" y1="18" x2="143.0" y2="254" stroke="#252a35"/>
+<line x1="250.2" y1="18" x2="250.2" y2="254" stroke="#252a35"/>
+<line x1="331.2" y1="18" x2="331.2" y2="254" stroke="#252a35"/>
+<line x1="412.3" y1="18" x2="412.3" y2="254" stroke="#252a35"/>
+<line x1="519.4" y1="18" x2="519.4" y2="254" stroke="#252a35"/>
+<line x1="600.5" y1="18" x2="600.5" y2="254" stroke="#252a35"/>
+<line x1="62" y1="239.1" x2="622" y2="239.1" stroke="#252a35"/>
+<line x1="62" y1="177.0" x2="622" y2="177.0" stroke="#252a35"/>
+<line x1="62" y1="114.9" x2="622" y2="114.9" stroke="#252a35"/>
+<line x1="62" y1="52.8" x2="622" y2="52.8" stroke="#252a35"/>
+<line x1="62" y1="18" x2="62" y2="254" stroke="#3a4150"/><line x1="62" y1="254" x2="622" y2="254" stroke="#3a4150"/>
+<circle cx="62.0" cy="36.5" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="143.0" cy="33.9" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="190.5" cy="57.0" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="224.1" cy="72.6" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="250.2" cy="70.0" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="271.5" cy="98.4" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="289.5" cy="112.6" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="305.1" cy="131.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="318.9" cy="131.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="331.2" cy="131.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="342.4" cy="162.0" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="352.5" cy="177.5" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="361.9" cy="140.1" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="370.6" cy="199.4" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="378.6" cy="199.4" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="386.2" cy="177.5" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="393.3" cy="162.0" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="406.3" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="412.3" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="418.0" cy="162.0" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="423.4" cy="199.4" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="428.6" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="433.6" cy="177.5" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="438.4" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="443.0" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="447.4" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="451.6" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="455.7" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="470.8" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="519.4" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="540.7" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="548.3" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<circle cx="607.3" cy="236.8" r="3.4" fill="#ef6b6b" fill-opacity="0.85"/>
+<text x="599.3" y="240.8" text-anchor="end" fill="#8b93a3" font-size="11" font-family="Space Grotesk, sans-serif">Spider-Man</text>
+<text x="548.3" y="226.8" text-anchor="middle" fill="#8b93a3" font-size="11" font-family="Space Grotesk, sans-serif">Hulk</text>
+<text x="540.7" y="252.8" text-anchor="middle" fill="#8b93a3" font-size="11" font-family="Space Grotesk, sans-serif">Wolverine</text>
+<text x="62.0" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">1</text>
+<text x="143.0" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">2</text>
+<text x="250.2" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">5</text>
+<text x="331.2" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">10</text>
+<text x="412.3" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">20</text>
+<text x="519.4" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">50</text>
+<text x="600.5" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">100</text>
+<text x="53" y="243.1" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.003</text>
+<text x="53" y="181.0" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.01</text>
+<text x="53" y="118.9" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.03</text>
+<text x="53" y="56.8" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.1</text>
+<text x="342" y="292" text-anchor="middle" fill="#6b7280" font-size="12" font-family="Space Grotesk, sans-serif">degree k</text>
+<text x="15" y="136" text-anchor="middle" fill="#6b7280" font-size="12" font-family="Space Grotesk, sans-serif" transform="rotate(-90 15 136)">P(k)</text>
+</svg>\n<figcaption>Each point is one degree value k, plotted against the fraction of characters with that degree. Isolates (k=0) are omitted, since zero has no place on a log axis. The tail runs three named hubs deep before thinning out.</figcaption>\n</figure>
 
-<div class="chart-container">
-  <div class="chart-title">Out-degree distribution (log–log)</div>
-  <canvas id="outDegreeChart" height="280"></canvas>
-</div>
+<figure>\n<div class="fig-title">Out-degree distribution, log&ndash;log</div>\n<svg viewBox="0 0 640 300" width="100%" preserveAspectRatio="xMidYMid meet">
+<line x1="62.0" y1="18" x2="62.0" y2="254" stroke="#252a35"/>
+<line x1="143.0" y1="18" x2="143.0" y2="254" stroke="#252a35"/>
+<line x1="250.2" y1="18" x2="250.2" y2="254" stroke="#252a35"/>
+<line x1="331.2" y1="18" x2="331.2" y2="254" stroke="#252a35"/>
+<line x1="412.3" y1="18" x2="412.3" y2="254" stroke="#252a35"/>
+<line x1="519.4" y1="18" x2="519.4" y2="254" stroke="#252a35"/>
+<line x1="600.5" y1="18" x2="600.5" y2="254" stroke="#252a35"/>
+<line x1="62" y1="239.1" x2="622" y2="239.1" stroke="#252a35"/>
+<line x1="62" y1="177.0" x2="622" y2="177.0" stroke="#252a35"/>
+<line x1="62" y1="114.9" x2="622" y2="114.9" stroke="#252a35"/>
+<line x1="62" y1="52.8" x2="622" y2="52.8" stroke="#252a35"/>
+<line x1="62" y1="18" x2="62" y2="254" stroke="#3a4150"/><line x1="62" y1="254" x2="622" y2="254" stroke="#3a4150"/>
+<circle cx="62.0" cy="51.5" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="143.0" cy="42.0" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="190.5" cy="37.8" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="224.1" cy="51.5" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="250.2" cy="72.6" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="271.5" cy="87.2" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="289.5" cy="94.4" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="305.1" cy="84.0" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="318.9" cy="94.4" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="331.2" cy="140.1" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="342.4" cy="102.7" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="352.5" cy="107.4" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="361.9" cy="177.5" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="370.6" cy="118.3" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="378.6" cy="177.5" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="386.2" cy="162.0" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="393.3" cy="150.0" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="400.0" cy="236.8" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="406.3" cy="199.4" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="412.3" cy="199.4" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="418.0" cy="236.8" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="423.4" cy="236.8" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="433.6" cy="236.8" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<circle cx="451.6" cy="236.8" r="3.4" fill="#6befa0" fill-opacity="0.85"/>
+<text x="443.6" y="240.8" text-anchor="end" fill="#8b93a3" font-size="11" font-family="Space Grotesk, sans-serif">Betsy Braddock</text>
+<text x="425.6" y="228.8" text-anchor="end" fill="#8b93a3" font-size="11" font-family="Space Grotesk, sans-serif">Cloak &amp; Dagger</text>
+<text x="62.0" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">1</text>
+<text x="143.0" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">2</text>
+<text x="250.2" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">5</text>
+<text x="331.2" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">10</text>
+<text x="412.3" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">20</text>
+<text x="519.4" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">50</text>
+<text x="600.5" y="272" text-anchor="middle" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">100</text>
+<text x="53" y="243.1" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.003</text>
+<text x="53" y="181.0" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.01</text>
+<text x="53" y="118.9" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.03</text>
+<text x="53" y="56.8" text-anchor="end" fill="#6b7280" font-size="11" font-family="Space Grotesk, sans-serif">0.1</text>
+<text x="342" y="292" text-anchor="middle" fill="#6b7280" font-size="12" font-family="Space Grotesk, sans-serif">degree k</text>
+<text x="15" y="136" text-anchor="middle" fill="#6b7280" font-size="12" font-family="Space Grotesk, sans-serif" transform="rotate(-90 15 136)">P(k)</text>
+</svg>\n<figcaption>The same axes and the same scale as above. Note where the horizontal axis runs out: the most prolific linker in the network reaches 28, roughly a quarter of Spider-Man&rsquo;s in-degree.</figcaption>\n</figure>
 
-<h2>The islands</h2>
+<p>The asymmetry has a mundane cause worth stating plainly. There is no ceiling on how many articles can mention Spider-Man, but there is a practical ceiling on how many characters one editor will cram into one article. Attention scales without limit; prose does not. So the network has genuine hubs on the receiving end and nothing comparable on the sending end.</p>
 
-<p>Seventeen characters sit completely alone — zero edges in either direction. These are the isolates, and they're worth a look. The giant weakly-connected component swallows 277 of 303 nodes. But between the giant and the isolates sits one genuine island: a cluster of 9 characters from the <em>Strikeforce: Morituri</em> series.</p>
+<h2>What the undirected view destroys</h2>
 
-<div class="morituri-box">
-<svg width="360" height="260" viewBox="0 0 360 260">
-  <!-- Morituri island visualization -->
-  <circle cx="180" cy="110" r="16" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="180" y="115" text-anchor="middle" fill="#c8cdd8" font-size="11" font-family="Space Grotesk">Radian</text>
+<p>Collapsing direction is tempting and costs more than it looks. In the directed graph, 58 characters have in-degree zero &mdash; nobody links to them at all. Undirected, only 17 nodes have degree zero. The other 41 are rescued from isolation by their own outgoing links: they mention others, and that is enough to give them neighbours.</p>
 
-  <circle cx="100" cy="60" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="100" y="64" text-anchor="middle" fill="#c8cdd8" font-size="10" font-family="Space Grotesk">Vyking</text>
+<p>Those 41 are structurally distinct. A character nobody references but who references eight others is in a completely different position from one with eight mutual ties, and the undirected view files them together. The tail suffers the same way: the undirected top eight is essentially the in-degree top eight wearing a disguise, because in-degree dominates the sum. Betsy Braddock, the most active linker in the network, does not make it.</p>
 
-  <circle cx="260" cy="60" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="260" y="64" text-anchor="middle" fill="#c8cdd8" font-size="10" font-family="Space Grotesk">Toxyn</text>
+<h2>The Morituri island</h2>
 
-  <circle cx="60" cy="140" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="60" y="144" text-anchor="middle" fill="#c8cdd8" font-size="10" font-family="Space Grotesk">Backhand</text>
+<p>The giant weakly-connected component holds 277 of 303 nodes. Seventeen more are true isolates. That leaves exactly one genuine island: nine characters from <em>Strikeforce: Morituri</em>, a 1986 series that never crossed into mainstream continuity.</p>
 
-  <circle cx="300" cy="140" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="300" y="144" text-anchor="middle" fill="#c8cdd8" font-size="10" font-family="Space Grotesk">Scaredycat</text>
-
-  <circle cx="80" cy="210" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="80" y="214" text-anchor="middle" fill="#c8cdd8" font-size="9" font-family="Space Grotesk">Snapdragon</text>
-
-  <circle cx="180" cy="210" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="180" y="214" text-anchor="middle" fill="#c8cdd8" font-size="10" font-family="Space Grotesk">Shear</text>
-
-  <circle cx="280" cy="210" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="280" y="214" text-anchor="middle" fill="#c8cdd8" font-size="9" font-family="Space Grotesk">Scatterbrain</text>
-
-  <circle cx="40" cy="110" r="14" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="40" y="114" text-anchor="middle" fill="#c8cdd8" font-size="9" font-family="Space Grotesk">Blackthorn</text>
-
-  <!-- Edges -->
-  <line x1="168" y1="100" x2="110" y2="70" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="192" y1="100" x2="250" y2="70" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="166" y1="118" x2="74" y2="140" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="194" y1="118" x2="286" y2="140" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="170" y1="124" x2="90" y2="200" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="180" y1="126" x2="180" y2="196" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="190" y1="124" x2="270" y2="200" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="170" y1="100" x2="54" y2="110" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="100" y1="74" x2="60" y2="126" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="100" y1="74" x2="80" y2="196" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="260" y1="74" x2="300" y2="126" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="260" y1="74" x2="280" y2="196" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="300" y1="154" x2="280" y2="196" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="54" y1="110" x2="80" y2="196" stroke="#2d4a7a" stroke-width="1"/>
-  <line x1="60" y1="154" x2="100" y2="74" stroke="#2d4a7a" stroke-width="1"/>
+<figure>
+<svg viewBox="0 0 400 250" width="100%" preserveAspectRatio="xMidYMid meet">
+  <g stroke="#2d4a7a" stroke-width="1">
+    <line x1="200" y1="125" x2="110" y2="62"/><line x1="200" y1="125" x2="290" y2="62"/>
+    <line x1="200" y1="125" x2="62" y2="125"/><line x1="200" y1="125" x2="338" y2="125"/>
+    <line x1="200" y1="125" x2="110" y2="192"/><line x1="200" y1="125" x2="200" y2="205"/>
+    <line x1="200" y1="125" x2="290" y2="192"/>
+    <line x1="110" y1="62" x2="62" y2="125"/><line x1="110" y1="62" x2="110" y2="192"/>
+    <line x1="290" y1="62" x2="338" y2="125"/><line x1="290" y1="62" x2="290" y2="192"/>
+    <line x1="338" y1="125" x2="290" y2="192"/><line x1="62" y1="125" x2="110" y2="192"/>
+  </g>
+  <g fill="#14171e" stroke="#5b8def" stroke-width="1.5">
+    <circle cx="200" cy="125" r="17"/><circle cx="110" cy="62" r="13"/>
+    <circle cx="290" cy="62" r="13"/><circle cx="62" cy="125" r="13"/>
+    <circle cx="338" cy="125" r="13"/><circle cx="110" cy="192" r="13"/>
+    <circle cx="200" cy="205" r="13"/><circle cx="290" cy="192" r="13"/>
+  </g>
+  <g fill="#c8cdd8" font-size="10" font-family="Space Grotesk, sans-serif" text-anchor="middle">
+    <text x="200" y="152">Radian</text><text x="110" y="42">Vyking</text>
+    <text x="290" y="42">Toxyn</text><text x="62" y="105">Blackthorn</text>
+    <text x="338" y="105">Scaredycat</text><text x="110" y="219">Snapdragon</text>
+    <text x="200" y="232">Shear</text><text x="290" y="219">Scatterbrain</text>
+  </g>
 </svg>
-<p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 0.5rem;">The Morituri island — 9 characters from a 1986 series, entirely disconnected from the main Marvel graph. Radian sits at the centre with degree 6.</p>
-</div>
+<figcaption>The Morituri cluster: nine characters wired to each other and to nothing else in the 303-node graph. Radian sits at the centre. Backhand, the ninth member, hangs off Vyking and Shear.</figcaption>
+</figure>
 
-<p>The Morituri characters never crossed over into mainstream Marvel continuity, so no mainstream character's article mentions them. They only link to each other. This is exactly the kind of structure you'd miss by only looking at the giant component: it's a self-contained sub-community that exists because of editorial separation, not because the characters are obscure. They have full Wikipedia articles — they just never shared a storyline with Spider-Man.</p>
+<p>These characters are not obscure in the sense of being badly documented &mdash; they all have full Wikipedia articles. They are disconnected because no mainstream Marvel article has any reason to mention them. The island is an artefact of editorial separation, not of notability, and it is exactly the kind of structure you would never see if you filtered down to the giant component and got on with it.</p>
 
-<p>The 17 true isolates are a different story. Characters like Baymax, Yo-Yo Rodriguez, and Solarman are categorised as Marvel superheroes on Wikipedia, but their articles apparently don't link to any other character in this 303-node set, and nobody links to them either. They exist in the category but not in the network. Some, like Baymax, are better known from adaptations than from comics; others, like Breeze Barton, are genuinely obscure Golden Age characters.</p>
+<p>The 17 true isolates are a separate case: Baymax, Yo-Yo Rodriguez, Solarman, Breeze Barton and thirteen others sit in the category without a single link in either direction. Some are better known from adaptations than from the comics; others are Golden Age characters nobody has written about in decades. They exist in the category but not in the network.</p>
 
-<h2>Reciprocity: who links back?</h2>
+<h2>Reciprocity, and who bothers to link back</h2>
 
-<p>39.2% of edges are reciprocated — if A's article links to B, there's a roughly 4-in-10 chance that B's article links back to A. That's high enough to matter but far from universal. The unreciprocated edges tell a story about asymmetric prominence: Spider-Man's article doesn't link to the 97 characters whose articles link to him. He doesn't need to mention Enigma or NFL SuperPro; they need to mention him to establish their place in the universe.</p>
+<p>39% of edges are reciprocated. Not negligible, but far from universal, and the unreciprocated majority is where the hierarchy lives. Spider-Man&rsquo;s article does not link back to the 97 characters whose articles point at him. He has no need to mention Enigma or NFL SuperPro; they need to mention him, because linking to Spider-Man is how a minor character&rsquo;s article establishes that it belongs to this universe at all.</p>
 
-<p>In the strongly connected component analysis, 229 of the 303 characters can reach each other through directed paths in both directions — a large mutual core where information (or at least hyperlinks) flows in both directions. The remaining 74 characters can reach the core but can't be reached back, or sit entirely outside it.</p>
+<p>229 of the 303 characters sit in a single strongly connected component &mdash; a mutual core where you can get from any member to any other by following links in both directions. The remaining 74 can reach the core but cannot be reached from it, or sit outside entirely.</p>
 
 <h2>What surprised us</h2>
 
-<p>The biggest surprise was the sheer asymmetry between the in-degree and out-degree rankings. We expected the same characters to dominate both — the famous ones would be mentioned often <em>and</em> would mention many others. Instead, the correlation is weak. Spider-Man is mentioned by a third of the network but mentions fewer than ten characters. Betsy Braddock, the top linker, doesn't crack the in-degree top 20. The network has a well-defined <em>prominence hierarchy</em> (measured by in-degree) and a separate <em>editorial sprawl dimension</em> (measured by out-degree), and the two are nearly orthogonal.</p>
+<p>We expected in-degree and out-degree to rank roughly the same people, on the theory that famous characters would be both mentioned often and mention many others. They barely overlap. The network turns out to have two nearly independent axes: a prominence hierarchy, which is steep and topped by Spider-Man, and an editorial sprawl dimension, which is flat and topped by someone most readers could not name.</p>
 
-<p>The second surprise was the Morituri island. We assumed the giant component would contain every non-isolated character. Finding a genuine 9-node archipelago from a single 1986 series — connected within itself but perfectly severed from 277 other characters — was a clean demonstration of how editorial firewalls create structural features in the network.</p>
+<p>The second surprise was that the giant component does not eat everything. We assumed every non-isolated node would end up in it. Finding a nine-node archipelago from one 1986 series &mdash; internally connected, externally severed &mdash; was a clean demonstration that a link network records how a corpus was written, not just what it contains.</p>
 
 </article>
 
-<footer>
-  02805 Social Graphs &amp; Interactions · DTU · Week 1 · September 2026
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
-// Degree distribution data (from analysis)
-const inDegreeData = {0:58,1:41,2:43,3:28,4:21,5:22,6:13,7:10,8:7,9:7,10:7,11:4,12:3,13:6,14:2,15:2,16:3,17:4,19:1,20:1,21:4,22:2,23:1,24:3,25:1,26:1,27:1,28:1,29:1,33:1,50:1,60:1,64:1,106:1};
-const outDegreeData = {0:20,1:31,2:37,3:40,4:31,5:21,6:16,7:14,8:17,9:14,10:6,11:12,12:11,13:3,14:9,15:3,16:4,17:5,18:1,19:2,20:2,21:1,22:1,24:1,28:1};
-
-function makeLogLogChart(canvasId, data, color) {
-  const ctx = document.getElementById(canvasId).getContext('2d');
-  const n = 303;
-  // Filter out k=0 for log-log
-  const points = Object.entries(data)
-    .filter(([k]) => parseInt(k) > 0)
-    .map(([k, count]) => ({ x: Math.log10(parseInt(k)), y: Math.log10(count / n) }))
-    .sort((a, b) => a.x - b.x);
-
-  new Chart(ctx, {
-    type: 'scatter',
-    data: {
-      datasets: [{
-        data: points,
-        backgroundColor: color,
-        borderColor: color,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: {
-          title: { display: true, text: 'log₁₀(k)', color: '#6b7280', font: { family: 'Space Grotesk', size: 12 } },
-          grid: { color: '#252a35' },
-          ticks: { color: '#6b7280', font: { family: 'Space Grotesk' } }
-        },
-        y: {
-          title: { display: true, text: 'log₁₀ P(k)', color: '#6b7280', font: { family: 'Space Grotesk', size: 12 } },
-          grid: { color: '#252a35' },
-          ticks: { color: '#6b7280', font: { family: 'Space Grotesk' } }
-        }
-      }
-    }
-  });
-}
-
-makeLogLogChart('inDegreeChart', inDegreeData, '#ef6b6b');
-makeLogLogChart('outDegreeChart', outDegreeData, '#6befa0');
-</script>
+<footer>02805 Social Graphs &amp; Interactions &middot; DTU &middot; Week 1 &middot; September 2026</footer>
 
 </body>
 </html>
