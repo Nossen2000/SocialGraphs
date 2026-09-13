@@ -4,7 +4,7 @@ Link to website:
 https://nossen2000.github.io/SocialGraphs/
 <h2>Contributors:</h2>
 Julius Nordfalk - Niels Snejbjerg
-## Weeks:
+<h2>Weeks:</h2>
 
 - Week 1: Networks
 - Week 2: Models and Null Models
