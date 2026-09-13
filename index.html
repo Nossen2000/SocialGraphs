@@ -1,18 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Social Graphs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Graphs & Interactions</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0c0e13;
+  --surface:#14171e;
+  --surface-hover:#181c24;
+  --border:#252a35;
+  --text:#c8cdd8;
+  --dim:#6b7280;
+  --heading:#e8ecf4;
+  --accent:#5b8def;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:18px;
+  line-height:1.7;
+}
+
+.site-header{
+  border-bottom:1px solid var(--border);
+  padding:1.4rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.site-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  color:var(--heading);
+  letter-spacing:-.02em;
+}
+
+.site-nav{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.85rem;
+}
+
+.site-nav a{
+  color:var(--dim);
+  text-decoration:none;
+  margin-left:1.4rem;
+}
+
+.site-nav a:hover{
+  color:var(--accent);
+}
+
+main{
+  max-width:760px;
+  margin:0 auto;
+  padding:4rem 2rem 5rem;
+}
+
+h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:3rem;
+  font-weight:700;
+  line-height:1.08;
+  color:var(--heading);
+  margin-bottom:.8rem;
+  letter-spacing:-.035em;
+}
+
+.subtitle{
+  font-size:1.08rem;
+  color:var(--dim);
+  margin-bottom:2.4rem;
+  font-style:italic;
+}
+
+.intro{
+  margin-bottom:3rem;
+}
+
+h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.4rem;
+  font-weight:700;
+  color:var(--heading);
+  margin-bottom:1rem;
+  letter-spacing:-.02em;
+}
+
+.week-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.week-card{
+  display:block;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:7px;
+  padding:1.35rem 1.4rem;
+  text-decoration:none;
+  color:var(--text);
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.week-card:hover{
+  transform:translateY(-2px);
+  border-color:var(--accent);
+  background:var(--surface-hover);
+}
+
+.week-label{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:.45rem;
+}
+
+.week-card h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.15rem;
+  line-height:1.25;
+  color:var(--heading);
+  margin-bottom:.55rem;
+}
+
+.week-card p{
+  font-size:.93rem;
+  color:var(--dim);
+  line-height:1.55;
+}
+
+.arrow{
+  display:inline-block;
+  margin-top:1rem;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.85rem;
+  color:var(--accent);
+}
+
+footer{
+  max-width:760px;
+  margin:0 auto;
+  padding:1.8rem 2rem 3rem;
+  border-top:1px solid var(--border);
+  font-size:.85rem;
+  color:var(--dim);
+  font-family:'Space Grotesk',sans-serif;
+}
+
+@media(max-width:640px){
+  .site-header{padding:1.2rem}
+  main{padding:2.5rem 1.2rem 3.5rem}
+  h1{font-size:2.15rem}
+  .week-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
-  <h1>Social Graphs & Interactions</h1>
+<header class="site-header">
+  <div class="site-title">Social Graphs &amp; Interactions</div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="Week 1/week1_post.html">Week 1</a>
+    <a href="Week 2/week2_post.html">Week 2</a>
+  </nav>
+</header>
 
-  <ul>
-    <li><a href="Week 1/week1_post.html">Week 1</a></li>
-    <li><a href="Week 2/week2_post.html">Week 2</a></li>
-  </ul>
+<main>
+
+  <h1>Social Graphs &amp; Interactions</h1>
+  <p class="subtitle">02805 · Technical University of Denmark</p>
+
+  <div class="intro">
+    <p>
+      This is the course website for <strong>Social Graphs &amp; Interactions</strong> at DTU.
+      Throughout the course, the different weekly assignments and analyses will be uploaded here.
+    </p>
+
+    <p>
+      Each week explores a new topic in network science, combining theory, data analysis,
+      visualisation, and interpretation.
+    </p>
+  </div>
+
+  <h2>Weeks</h2>
+
+  <div class="week-grid">
+
+    <a class="week-card" href="Week 1/week1_post.html">
+      <div class="week-label">Week 1</div>
+      <h3>Networks</h3>
+      <p>
+        An analysis of Wikipedia's Marvel superhero network, focusing on degree distributions,
+        prominence, reciprocity, and connected components.
+      </p>
+      <span class="arrow">Open Week 1 →</span>
+    </a>
+
+    <a class="week-card" href="Week 2/week2_post.html">
+      <div class="week-label">Week 2</div>
+      <h3>Models and Null Models</h3>
+      <p>
+        A closer look at network models and null models, and how they can be used to compare
+        observed network structure with theoretical expectations.
+      </p>
+      <span class="arrow">Open Week 2 →</span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  02805 Social Graphs &amp; Interactions · DTU · 2026
+</footer>
 
 </body>
 </html>
