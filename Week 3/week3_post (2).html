@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A network robustness analysis of the Marvel character network.">
+  <title>Who Holds the Marvel Universe Together? · Week 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0c0e13;--surface:#14171e;--surface-hover:#181c24;--border:#252a35;--text:#c8cdd8;--dim:#6b7280;--heading:#e8ecf4;--accent:#5b8def;--orange:#e6a15a;--green:#6befa0}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.7}
+    a{color:var(--accent)}
+    .shell{max-width:700px;margin:0 auto}
+    nav{border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1100px;min-height:auto;padding:1.4rem 2rem;display:flex;justify-content:space-between;align-items:baseline}
+    .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;color:var(--heading);text-decoration:none;letter-spacing:-.02em}
+    .nav-links{font-family:'Space Grotesk',sans-serif;font-size:.85rem}
+    .nav-links a{color:var(--dim);text-decoration:none;margin-left:1.4rem}
+    .nav-links a:hover,.nav-links .active{color:var(--accent)}
+    header{padding:3rem 2rem 1rem}
+    .eyebrow{display:none}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:2.6rem;font-weight:700;line-height:1.1;color:var(--heading);margin:0 0 .6rem;letter-spacing:-.03em}
+    .lead{font-size:1.05rem;color:var(--dim);margin-bottom:1.2rem;font-style:italic}
+    .question{background:var(--surface);border-left:3px solid var(--accent);padding:1rem 1.4rem;margin:1rem 0 0;border-radius:0 6px 6px 0;font-style:italic}
+    main{padding:1rem 2rem 5rem}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .card{background:transparent;border:0;border-radius:0;box-shadow:none}
+    .metric{grid-column:span 1;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.2rem}
+    .metric-label{font-family:'Space Grotesk',sans-serif;color:var(--dim);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+    .metric-value{font-family:'Space Grotesk',sans-serif;color:var(--heading);font-size:1.8rem;font-weight:700;line-height:1.05;margin-top:.35rem;overflow-wrap:anywhere}
+    .metric-note{color:var(--dim);font-size:.78rem;margin-top:.35rem;line-height:1.35}
+    .panel{grid-column:1/-1;padding:0;margin-top:1.4rem}
+    .half{grid-column:1/-1}
+    h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:var(--heading);margin:2rem 0 1rem;letter-spacing:-.02em}
+    h3{font-family:'Space Grotesk',sans-serif;font-size:.95rem;color:var(--heading);margin-bottom:.45rem}
+    p{margin-bottom:1.2rem}
+    .muted{color:var(--dim)}
+    .method-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.4rem 0}
+    .method-step{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem}
+    .step-number{display:grid;width:27px;height:27px;place-items:center;border-radius:50%;background:var(--accent);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:.75rem;font-weight:700;margin-bottom:.7rem}
+    .method-step p{font-size:.85rem;line-height:1.45;margin:0}
+    .chart{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem;width:100%;min-height:0;margin:1rem 0;overflow:hidden}
+    .chart svg{display:block;width:100%;height:auto;max-height:330px}
+    .legend{display:flex;flex-wrap:wrap;gap:1rem;color:var(--dim);font-family:'Space Grotesk',sans-serif;font-size:.75rem;margin:.7rem 0 1.5rem}
+    .legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dot);margin-right:6px}
+    .conclusion{background:var(--surface);border-left:3px solid var(--accent);padding:1rem 1.4rem;border-radius:0 6px 6px 0;font-style:italic}
+    .conclusion h2{margin-top:0;font-style:normal}
+    .table-wrap{overflow-x:auto;margin:1rem 0}
+    table{width:100%;border-collapse:collapse;font-size:.86rem}
+    th{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.68rem;color:var(--dim);text-align:left;padding:.45rem .55rem;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.04em}
+    td{padding:.45rem .55rem;border-bottom:1px solid var(--border);white-space:normal}
+    td:first-child{color:var(--heading)}
+    .status{padding:1rem;color:var(--orange);background:var(--surface);border:1px solid var(--border);border-radius:6px}
+    code{font-size:.85em;color:var(--heading)}
+    footer{max-width:700px;margin:0 auto;padding:1.8rem 2rem 3rem;border-top:1px solid var(--border);font-size:.85rem;color:var(--dim);font-family:'Space Grotesk',sans-serif;text-align:left}
+    @media(max-width:640px){.nav-inner{padding:1.2rem;align-items:flex-start;gap:.7rem;flex-direction:column}.nav-links a{margin:0 1rem 0 0}header{padding:2rem 1.2rem 1rem}main{padding:1rem 1.2rem 3.5rem}h1{font-size:1.9rem}.grid{grid-template-columns:repeat(2,1fr)}.metric{grid-column:span 1}.method-list{grid-template-columns:1fr}.chart{padding:.5rem}.chart svg{max-height:none}}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="shell nav-inner">
+      <a class="brand" href="../index.html">Social Graphs &amp; Interactions</a>
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a href="../Week 1/week1_post.html">Week 1</a>
+        <a href="../Week 2/week2_post.html">Week 2</a>
+        <a class="active" href="week3_post.html">Week 3</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="shell">
+    <h1>Who holds the Marvel Universe together?</h1>
+    <p class="lead">Week 3 &mdash; paths, centrality and structural robustness</p>
+    <p>Famous characters are easy to spot. Structurally critical characters are harder. We test the network directly by removing characters and watching its giant component break apart.</p>
+    <div class="question">Is the character with the highest betweenness also the one whose removal causes the most damage?</div>
+  </header>
+
+  <main class="shell">
+    <section class="grid" aria-label="Key results">
+      <article class="card metric">
+        <div class="metric-value" id="networkNodes">—</div>
+        <div class="metric-note">characters in giant component</div>
+      </article>
+      <article class="card metric">
+        <div class="metric-value" id="networkEdges">—</div>
+        <div class="metric-note">undirected ties</div>
+      </article>
+      <article class="card metric">
+        <div class="metric-value" id="testedNodes">—</div>
+        <div class="metric-note">single removals tested</div>
+      </article>
+      <article class="card metric">
+        <div class="metric-value" id="curveSteps">—</div>
+        <div class="metric-note">cumulative removals</div>
+      </article>
+
+      <article class="card panel">
+        <h2>How we tested the network</h2>
+        <p class="muted">We work on the largest connected component of an undirected version of the Marvel graph. This keeps the question focused on the part of the network in which every character can reach every other character.</p>
+        <div class="method-list">
+          <div class="method-step"><div class="step-number">1</div><h3>Measure bridging</h3><p class="muted">Compute betweenness centrality: the share of shortest paths that pass through each character.</p></div>
+          <div class="method-step"><div class="step-number">2</div><h3>Remove characters</h3><p class="muted">Delete characters one at a time and measure the resulting drop in the giant component.</p></div>
+          <div class="method-step"><div class="step-number">3</div><h3>Compare attacks</h3><p class="muted">Remove nodes cumulatively by betweenness, by degree, and in random order.</p></div>
+        </div>
+      </article>
+
+      <article class="card panel">
+        <h2>Which single removal hurts most?</h2>
+        <p class="muted">A larger bar means that more additional characters are separated from the giant component. The removed character itself is not counted as damage.</p>
+        <div id="damageChart" class="chart" role="img" aria-label="Bar chart of the most damaging character removals"></div>
+      </article>
+
+      <article class="card panel">
+        <h2>How quickly does the network fragment?</h2>
+        <p class="muted">Here the removals are cumulative. A steep curve means the removal strategy rapidly breaks the network into disconnected pieces.</p>
+        <div id="robustnessChart" class="chart" role="img" aria-label="Line chart comparing targeted and random character removal"></div>
+        <div class="legend">
+          <span style="--dot:#2864dc">Betweenness order</span>
+          <span style="--dot:#ef8b32">Degree order</span>
+          <span style="--dot:#23a07a">Random baseline</span>
+        </div>
+      </article>
+
+      <article class="card panel half">
+        <h2>Centrality is not dependency</h2>
+        <p>Betweenness measures how often a character sits on shortest routes. Removal damage asks a different question: does the rest of the network still remain connected without that character?</p>
+        <p class="muted">The two measures should be related, but they do not have to select the same character. Dense alternative routes can make a highly central node surprisingly replaceable.</p>
+      </article>
+
+      <article class="card panel half conclusion">
+        <h2>What we found</h2>
+        <p id="findingText">The final interpretation will appear here automatically after the analysis has been run.</p>
+        <p class="muted" id="networkSummary"></p>
+      </article>
+
+      <article class="card panel">
+        <h2>Top structural weak points</h2>
+        <p class="muted">The table compares actual damage with betweenness rank. Values are calculated from the supplied graph—not hard-coded into the page.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Character</th><th>Separated nodes</th><th>Share separated</th><th>Betweenness</th><th>Rank</th></tr></thead>
+            <tbody id="resultsBody"><tr><td colspan="5">No analysis data loaded yet.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="status" id="dataStatus">Loading <code>week1_nodes.tsv</code> and <code>week1_edges.tsv</code>…</div>
+      </article>
+    </section>
+  </main>
+
+  <footer>02805 Social Graphs &amp; Interactions &middot; DTU &middot; Week 3 &middot; September 2026</footer>
+
+  <script>
+    const NODES_PATH = '../Data/Week1/week1_nodes.tsv';
+    const EDGES_PATH = '../Data/Week1/week1_edges.tsv';
+    const fmt = (n, d = 3) => Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
+    const escapeHtml = value => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+
+    function parseTSV(text) {
+      const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/).filter(line => line.trim());
+      if (!lines.length) throw new Error('The TSV file is empty.');
+      // These course files may be headerless. Never split on commas: commas
+      // are part of names such as "Bob, Agent of Hydra".
+      return lines.map(line => line.split('\t').map(value => value.trim().replace(/^"|"$/g, '')));
+    }
+
+    function headerInfo(rows, preferred) {
+      const first = rows[0].map(value => value.toLowerCase());
+      const indices = preferred.map(names => first.findIndex(value => names.includes(value)));
+      return { hasHeader: indices.some(index => index >= 0), indices };
+    }
+
+    function prettyName(value) {
+      let name = String(value || 'Unknown');
+      try { name = decodeURIComponent(name); } catch (_) {}
+      name = name.replace(/^.*\/wiki\//, '').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+      return name;
+    }
+
+    function buildNetwork(nodesText, edgesText) {
+      const nodeRows = parseTSV(nodesText);
+      const edgeRows = parseTSV(edgesText);
+      const nodeHeader = headerInfo(nodeRows, [
+        ['id', 'node', 'node_id', 'index'],
+        ['label', 'name', 'character', 'title', 'page']
+      ]);
+      const edgeHeader = headerInfo(edgeRows, [
+        ['source', 'from', 'node1', 'character1', 'src'],
+        ['target', 'to', 'node2', 'character2', 'dst']
+      ]);
+      const idIndex = nodeHeader.indices[0] >= 0 ? nodeHeader.indices[0] : 0;
+      const labelIndex = nodeHeader.indices[1] >= 0 ? nodeHeader.indices[1] : (nodeRows[0].length > 1 ? 1 : 0);
+      const sourceIndex = edgeHeader.indices[0] >= 0 ? edgeHeader.indices[0] : 0;
+      const targetIndex = edgeHeader.indices[1] >= 0 ? edgeHeader.indices[1] : 1;
+      const labels = new Map();
+      const adjacency = new Map();
+      const ensure = id => { if (!adjacency.has(id)) adjacency.set(id, new Set()); };
+
+      for (const row of nodeRows.slice(nodeHeader.hasHeader ? 1 : 0)) {
+        const id = row[idIndex];
+        if (!id) continue;
+        labels.set(id, prettyName(row[labelIndex] || id));
+        ensure(id);
+      }
+      for (const row of edgeRows.slice(edgeHeader.hasHeader ? 1 : 0)) {
+        const source = row[sourceIndex], target = row[targetIndex];
+        if (!source || !target || source === target) continue;
+        ensure(source); ensure(target);
+        adjacency.get(source).add(target);
+        adjacency.get(target).add(source);
+      }
+      for (const id of adjacency.keys()) if (!labels.has(id)) labels.set(id, prettyName(id));
+      return { labels, adjacency };
+    }
+
+    function giantComponent(adjacency) {
+      const seen = new Set();
+      let largest = [];
+      for (const start of adjacency.keys()) {
+        if (seen.has(start)) continue;
+        const component = [], queue = [start];
+        seen.add(start);
+        for (let q = 0; q < queue.length; q++) {
+          const node = queue[q];
+          component.push(node);
+          for (const neighbour of adjacency.get(node) || []) {
+            if (!seen.has(neighbour)) { seen.add(neighbour); queue.push(neighbour); }
+          }
+        }
+        if (component.length > largest.length) largest = component;
+      }
+      return largest;
+    }
+
+    function indexNetwork(adjacency, component) {
+      const index = new Map(component.map((node, i) => [node, i]));
+      const neighbours = component.map(node => [...(adjacency.get(node) || [])].filter(n => index.has(n)).map(n => index.get(n)));
+      return { nodes: component, neighbours };
+    }
+
+    function approximateBetweenness(neighbours, sampleLimit = 60) {
+      const n = neighbours.length;
+      const centrality = new Float64Array(n);
+      const sampleCount = Math.min(sampleLimit, n);
+      const sources = Array.from({ length: sampleCount }, (_, i) => Math.floor(i * n / sampleCount));
+
+      for (const source of sources) {
+        const stack = [];
+        const predecessors = Array.from({ length: n }, () => []);
+        const sigma = new Float64Array(n);
+        const distance = new Int32Array(n); distance.fill(-1);
+        const queue = new Int32Array(n);
+        let head = 0, tail = 0;
+        sigma[source] = 1; distance[source] = 0; queue[tail++] = source;
+        while (head < tail) {
+          const v = queue[head++]; stack.push(v);
+          for (const w of neighbours[v]) {
+            if (distance[w] < 0) { distance[w] = distance[v] + 1; queue[tail++] = w; }
+            if (distance[w] === distance[v] + 1) { sigma[w] += sigma[v]; predecessors[w].push(v); }
+          }
+        }
+        const delta = new Float64Array(n);
+        while (stack.length) {
+          const w = stack.pop();
+          for (const v of predecessors[w]) delta[v] += (sigma[v] / sigma[w]) * (1 + delta[w]);
+          if (w !== source) centrality[w] += delta[w];
+        }
+      }
+      const scale = sampleCount ? n / sampleCount : 1;
+      const normalizer = n > 2 ? 1 / ((n - 1) * (n - 2)) : 1;
+      return Array.from(centrality, value => value * scale * normalizer);
+    }
+
+    function largestRemaining(neighbours, removed) {
+      const n = neighbours.length, seen = new Uint8Array(n);
+      let largest = 0;
+      for (let start = 0; start < n; start++) {
+        if (removed.has(start) || seen[start]) continue;
+        let size = 0, head = 0;
+        const queue = [start]; seen[start] = 1;
+        while (head < queue.length) {
+          const v = queue[head++]; size++;
+          for (const w of neighbours[v]) if (!removed.has(w) && !seen[w]) { seen[w] = 1; queue.push(w); }
+        }
+        if (size > largest) largest = size;
+      }
+      return largest;
+    }
+
+    function removalCurve(neighbours, order, steps) {
+      const removed = new Set();
+      const curve = [{ removed: 0, giant_component: neighbours.length }];
+      for (let i = 0; i < steps; i++) {
+        removed.add(order[i]);
+        curve.push({ removed: i + 1, giant_component: largestRemaining(neighbours, removed) });
+      }
+      return curve;
+    }
+
+    function seededShuffle(values, seed = 42) {
+      const output = [...values];
+      let state = seed >>> 0;
+      const random = () => { state += 0x6D2B79F5; let t = state; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+      for (let i = output.length - 1; i > 0; i--) { const j = Math.floor(random() * (i + 1)); [output[i], output[j]] = [output[j], output[i]]; }
+      return output;
+    }
+
+    function analyseNetwork(network) {
+      const component = giantComponent(network.adjacency);
+      const { nodes, neighbours } = indexNetwork(network.adjacency, component);
+      const n = nodes.length;
+      if (!n) throw new Error('No connected characters were found in the data.');
+      const degree = neighbours.map(list => list.length);
+      // The giant component contains 277 nodes, so exact betweenness is fast
+      // enough to compute in the browser and avoids sampling noise.
+      const betweenness = approximateBetweenness(neighbours, n);
+      const byBetweenness = Array.from({ length: n }, (_, i) => i).sort((a, b) => betweenness[b] - betweenness[a]);
+      const byDegree = Array.from({ length: n }, (_, i) => i).sort((a, b) => degree[b] - degree[a]);
+      const ranks = new Int32Array(n); byBetweenness.forEach((node, i) => ranks[node] = i + 1);
+
+      const damage = Array.from({ length: n }, (_, node) => {
+        const largest = largestRemaining(neighbours, new Set([node]));
+        const separated = Math.max(0, (n - 1) - largest);
+        return { node, drop: separated, relative_drop: separated / Math.max(1, n - 1), betweenness: betweenness[node] };
+      }).sort((a, b) => b.drop - a.drop || b.betweenness - a.betweenness);
+
+      const topBetween = byBetweenness[0], topDamage = damage[0];
+      const steps = Math.min(50, Math.max(1, n - 1));
+      const edgeCount = neighbours.reduce((sum, list) => sum + list.length, 0) / 2;
+      const label = node => network.labels.get(nodes[node]) || prettyName(nodes[node]);
+      return {
+        network: { nodes: n, edges: edgeCount },
+        key_results: {
+          highest_betweenness: { character: label(topBetween), betweenness: betweenness[topBetween] },
+          most_damaging: { character: label(topDamage.node), drop: topDamage.drop, relative_drop: topDamage.relative_drop },
+          same_character: topBetween === topDamage.node
+        },
+        top_removals: damage.slice(0, 8).map(row => ({ character: label(row.node), drop: row.drop, relative_drop: row.relative_drop, betweenness: row.betweenness, betweenness_rank: ranks[row.node] })),
+        robustness: {
+          betweenness: removalCurve(neighbours, byBetweenness, steps),
+          degree: removalCurve(neighbours, byDegree, steps),
+          random_mean: removalCurve(neighbours, seededShuffle(Array.from({ length: n }, (_, i) => i)), steps)
+        }
+      };
+    }
+
+    function emptyChart(target, message) {
+      document.getElementById(target).innerHTML = `<div class="status">${message}</div>`;
+    }
+
+    function barChart(target, rows) {
+      if (!rows?.length) return emptyChart(target, 'No removal results available.');
+      const width = 640, height = 320, left = 205, right = 28, top = 14, bottom = 38;
+      const max = Math.max(...rows.map(d => d.drop), 1);
+      const band = (height - top - bottom) / rows.length;
+      const plotW = width - left - right;
+      const bars = rows.map((d, i) => {
+        const y = top + i * band + band * .17;
+        const w = d.drop / max * plotW;
+        const shown = d.character.length > 28 ? d.character.slice(0, 27) + '…' : d.character;
+        return `<text x="${left - 10}" y="${y + band * .47}" text-anchor="end" font-size="11" font-family="Space Grotesk, sans-serif" fill="#c8cdd8">${escapeHtml(shown)}</text>
+          <rect x="${left}" y="${y}" width="${w}" height="${band * .62}" rx="3" fill="#5b8def" opacity="${.95 - i * .035}" />
+          <text x="${left + w + 7}" y="${y + band * .47}" font-size="11" font-family="Space Grotesk, sans-serif" fill="#9aa3b2">${fmt(d.drop, 0)}</text>`;
+      }).join('');
+      document.getElementById(target).innerHTML = `<svg viewBox="0 0 ${width} ${height}" aria-hidden="true">${bars}<line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" stroke="#3a4150"/><text x="${left + plotW/2}" y="${height-7}" text-anchor="middle" font-size="11" font-family="Space Grotesk, sans-serif" fill="#6b7280">Additional characters separated</text></svg>`;
+    }
+
+    function lineChart(target, series) {
+      if (!series?.betweenness?.length) return emptyChart(target, 'No cumulative-removal results available.');
+      const width = 640, height = 300, left = 52, right = 18, top = 16, bottom = 44;
+      const all = [...series.betweenness, ...series.degree, ...series.random_mean];
+      const xMax = Math.max(...all.map(d => d.removed), 1);
+      const yMax = Math.max(...all.map(d => d.giant_component), 1);
+      const x = v => left + v / xMax * (width-left-right);
+      const y = v => top + (1-v/yMax) * (height-top-bottom);
+      const path = arr => arr.map((d,i) => `${i?'L':'M'} ${x(d.removed).toFixed(2)} ${y(d.giant_component).toFixed(2)}`).join(' ');
+      const grid = [0,.25,.5,.75,1].map(t => `<line x1="${left}" y1="${y(t*yMax)}" x2="${width-right}" y2="${y(t*yMax)}" stroke="#252a35"/><text x="${left-8}" y="${y(t*yMax)+4}" text-anchor="end" font-size="10" font-family="Space Grotesk, sans-serif" fill="#6b7280">${fmt(t*yMax,0)}</text>`).join('');
+      document.getElementById(target).innerHTML = `<svg viewBox="0 0 ${width} ${height}" aria-hidden="true">${grid}
+        <path d="${path(series.betweenness)}" fill="none" stroke="#5b8def" stroke-width="2.5"/>
+        <path d="${path(series.degree)}" fill="none" stroke="#e6a15a" stroke-width="2.5"/>
+        <path d="${path(series.random_mean)}" fill="none" stroke="#6befa0" stroke-width="2.5" stroke-dasharray="6 5"/>
+        <line x1="${left}" y1="${top}" x2="${left}" y2="${height-bottom}" stroke="#3a4150"/><line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" stroke="#3a4150"/>
+        <text x="${(left+width-right)/2}" y="${height-7}" text-anchor="middle" font-size="11" font-family="Space Grotesk, sans-serif" fill="#6b7280">Characters removed</text>
+        <text transform="translate(14 ${(top+height-bottom)/2}) rotate(-90)" text-anchor="middle" font-size="11" font-family="Space Grotesk, sans-serif" fill="#6b7280">Giant component size</text></svg>`;
+    }
+
+    function render(data) {
+      const b = data.key_results.highest_betweenness;
+      const d = data.key_results.most_damaging;
+      const same = data.key_results.same_character;
+      document.getElementById('networkNodes').textContent = fmt(data.network.nodes,0);
+      document.getElementById('networkEdges').textContent = fmt(data.network.edges,0);
+      document.getElementById('testedNodes').textContent = fmt(data.network.nodes,0);
+      document.getElementById('curveSteps').textContent = fmt(data.robustness.betweenness.length - 1,0);
+      document.getElementById('networkSummary').textContent = `The calculation uses the ${fmt(data.network.nodes,0)}-character giant weakly connected component and ${fmt(data.network.edges,0)} undirected ties.`;
+      document.getElementById('findingText').textContent = d.drop === 0
+        ? `${b.character} has the highest betweenness, but no single removal splits additional characters away from the giant component. The network has alternative routes around every individual character.`
+        : same
+          ? `${b.character} has the highest betweenness and also separates the most additional characters when removed (${fmt(d.drop,0)}). Here, shortest-path brokerage and structural dependency identify the same character.`
+          : `${b.character} has the highest betweenness, while removing ${d.character} separates the most additional characters (${fmt(d.drop,0)}). Being on many shortest paths is therefore not identical to being irreplaceable.`;
+      document.getElementById('resultsBody').innerHTML = data.top_removals.map(r => `<tr><td><strong>${escapeHtml(r.character)}</strong></td><td>${fmt(r.drop,0)}</td><td>${fmt(r.relative_drop*100,2)}%</td><td>${fmt(r.betweenness,5)}</td><td>${fmt(r.betweenness_rank,0)}</td></tr>`).join('');
+      document.getElementById('dataStatus').style.display = 'none';
+      barChart('damageChart', data.top_removals);
+      lineChart('robustnessChart', data.robustness);
+    }
+
+    async function start() {
+      try {
+        const [nodesResponse, edgesResponse] = await Promise.all([fetch(NODES_PATH), fetch(EDGES_PATH)]);
+        if (!nodesResponse.ok) throw new Error(`Could not load ${NODES_PATH} (${nodesResponse.status}).`);
+        if (!edgesResponse.ok) throw new Error(`Could not load ${EDGES_PATH} (${edgesResponse.status}).`);
+        const network = buildNetwork(await nodesResponse.text(), await edgesResponse.text());
+        if (network.adjacency.size < 250) throw new Error(`Only ${network.adjacency.size} characters were parsed; the Week 1 dataset should contain 303.`);
+        document.getElementById('dataStatus').textContent = 'Analysing the Marvel network…';
+        await new Promise(resolve => setTimeout(resolve, 30));
+        render(analyseNetwork(network));
+      } catch (error) {
+        console.error(error);
+        const message = `Data error: ${escapeHtml(error.message)}`;
+        document.getElementById('dataStatus').innerHTML = `<strong>${message}</strong>`;
+        emptyChart('damageChart', message);
+        emptyChart('robustnessChart', message);
+      }
+    }
+
+    start();
+  </script>
+</body>
+</html>
