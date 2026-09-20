@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A network robustness analysis of the Marvel character network.">
+  <title>Who Holds the Marvel Universe Together?</title>
+  <style>
+    :root {
+      --ink: #18212f;
+      --muted: #687386;
+      --paper: #f4f7fb;
+      --card: #ffffff;
+      --line: #dfe6ef;
+      --blue: #2864dc;
+      --blue-soft: #eaf1ff;
+      --orange: #ef8b32;
+      --green: #23a07a;
+      --shadow: 0 18px 45px rgba(25, 45, 85, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(223, 230, 239, .9);
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(14px);
+    }
+    .nav-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-weight: 850; text-decoration: none; letter-spacing: -.03em; }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-links a { padding: 8px 12px; border-radius: 10px; color: var(--muted); text-decoration: none; font-weight: 650; }
+    .nav-links a:hover, .nav-links .active { color: var(--blue); background: var(--blue-soft); }
+
+    header { padding: 86px 0 56px; }
+    .eyebrow { color: var(--blue); font-size: .8rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { max-width: 900px; margin: 12px 0 18px; font-size: clamp(2.5rem, 7vw, 5.25rem); line-height: .98; letter-spacing: -.065em; }
+    .lead { max-width: 780px; margin: 0; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.3rem); }
+    .question { display: inline-block; margin-top: 28px; padding: 12px 16px; border-left: 4px solid var(--orange); background: #fff7ef; border-radius: 0 12px 12px 0; font-weight: 720; }
+
+    main { padding-bottom: 80px; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); }
+    .metric { grid-column: span 4; padding: 24px; }
+    .metric-label { color: var(--muted); font-size: .78rem; font-weight: 820; letter-spacing: .08em; text-transform: uppercase; }
+    .metric-value { margin-top: 6px; overflow-wrap: anywhere; font-size: clamp(1.4rem, 3vw, 2.15rem); font-weight: 880; letter-spacing: -.035em; }
+    .metric-note { margin-top: 4px; color: var(--muted); font-size: .92rem; }
+    .panel { grid-column: span 12; padding: clamp(22px, 4vw, 38px); }
+    .half { grid-column: span 6; }
+    h2 { margin: 0 0 12px; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -.035em; }
+    h3 { margin: 0 0 8px; font-size: 1.12rem; }
+    p { margin: 0 0 14px; }
+    .muted { color: var(--muted); }
+    .method-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
+    .method-step { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fbfcfe; }
+    .step-number { display: grid; width: 34px; height: 34px; margin-bottom: 13px; place-items: center; border-radius: 50%; color: white; background: var(--blue); font-weight: 850; }
+    .chart { width: 100%; min-height: 390px; margin-top: 20px; overflow: hidden; }
+    .chart svg { width: 100%; height: auto; display: block; }
+    .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; color: var(--muted); font-size: .9rem; }
+    .legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; margin-right: 7px; border-radius: 50%; background: var(--dot); }
+    .table-wrap { margin-top: 18px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+    th, td { padding: 12px 13px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+    th { color: var(--muted); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
+    tbody tr:hover { background: #f8faff; }
+    .conclusion { border-top: 5px solid var(--blue); }
+    .status { margin-top: 20px; padding: 14px 16px; color: #7b4d18; background: #fff4e5; border: 1px solid #ffdcae; border-radius: 12px; }
+    code { padding: .15em .4em; background: #edf1f7; border-radius: 6px; font-size: .9em; }
+    footer { padding: 28px 0 50px; color: var(--muted); text-align: center; font-size: .9rem; }
+
+    @media (max-width: 800px) {
+      .metric, .half { grid-column: span 12; }
+      .method-list { grid-template-columns: 1fr; }
+      .nav-inner { align-items: flex-start; padding: 12px 0; flex-direction: column; gap: 6px; }
+      header { padding-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html">Social Graphs &amp; Interactions</a>
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Overview</a>
+        <a href="week1_post.html">Week 1</a>
+        <a class="active" href="week2_post.html">Week 2</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="shell">
+    <div class="eyebrow">Week 2 · Paths, centrality &amp; robustness</div>
+    <h1>Who holds the Marvel Universe together?</h1>
+    <p class="lead">Famous characters are easy to spot. Structurally critical characters are harder. We test the network directly by removing characters and watching its giant component break apart.</p>
+    <div class="question">Is the character with the highest betweenness also the one whose removal causes the most damage?</div>
+  </header>
+
+  <main class="shell">
+    <section class="grid" aria-label="Key results">
+      <article class="card metric">
+        <div class="metric-label">Highest betweenness</div>
+        <div class="metric-value" id="topBetweenness">Awaiting data</div>
+        <div class="metric-note" id="topBetweennessNote">Run the Python analysis</div>
+      </article>
+      <article class="card metric">
+        <div class="metric-label">Most damaging removal</div>
+        <div class="metric-value" id="topDamage">Awaiting data</div>
+        <div class="metric-note" id="topDamageNote">Run the Python analysis</div>
+      </article>
+      <article class="card metric">
+        <div class="metric-label">Same character?</div>
+        <div class="metric-value" id="sameCharacter">—</div>
+        <div class="metric-note" id="sameCharacterNote">Centrality versus actual robustness</div>
+      </article>
+
+      <article class="card panel">
+        <h2>How we tested the network</h2>
+        <p class="muted">We work on the largest connected component of an undirected version of the Marvel graph. This keeps the question focused on the part of the network in which every character can reach every other character.</p>
+        <div class="method-list">
+          <div class="method-step"><div class="step-number">1</div><h3>Measure bridging</h3><p class="muted">Compute betweenness centrality: the share of shortest paths that pass through each character.</p></div>
+          <div class="method-step"><div class="step-number">2</div><h3>Remove characters</h3><p class="muted">Delete characters one at a time and measure the resulting drop in the giant component.</p></div>
+          <div class="method-step"><div class="step-number">3</div><h3>Compare attacks</h3><p class="muted">Remove nodes cumulatively by betweenness, by degree, and in random order.</p></div>
+        </div>
+      </article>
+
+      <article class="card panel">
+        <h2>Which single removal hurts most?</h2>
+        <p class="muted">A larger bar means that more characters are pushed out of the giant component after that one character is removed.</p>
+        <div id="damageChart" class="chart" role="img" aria-label="Bar chart of the most damaging character removals"></div>
+      </article>
+
+      <article class="card panel">
+        <h2>How quickly does the network fragment?</h2>
+        <p class="muted">Here the removals are cumulative. A steep curve means the removal strategy rapidly breaks the network into disconnected pieces.</p>
+        <div id="robustnessChart" class="chart" role="img" aria-label="Line chart comparing targeted and random character removal"></div>
+        <div class="legend">
+          <span style="--dot:#2864dc">Betweenness order</span>
+          <span style="--dot:#ef8b32">Degree order</span>
+          <span style="--dot:#23a07a">Random baseline</span>
+        </div>
+      </article>
+
+      <article class="card panel half">
+        <h2>Centrality is not dependency</h2>
+        <p>Betweenness measures how often a character sits on shortest routes. Removal damage asks a different question: does the rest of the network still remain connected without that character?</p>
+        <p class="muted">The two measures should be related, but they do not have to select the same character. Dense alternative routes can make a highly central node surprisingly replaceable.</p>
+      </article>
+
+      <article class="card panel half conclusion">
+        <h2>What we found</h2>
+        <p id="findingText">The final interpretation will appear here automatically after the analysis has been run.</p>
+        <p class="muted" id="networkSummary"></p>
+      </article>
+
+      <article class="card panel">
+        <h2>Top structural weak points</h2>
+        <p class="muted">The table compares actual damage with betweenness rank. Values are calculated from the supplied graph—not hard-coded into the page.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Character</th><th>Giant-component drop</th><th>Relative drop</th><th>Betweenness</th><th>Betweenness rank</th></tr></thead>
+            <tbody id="resultsBody"><tr><td colspan="5">No analysis data loaded yet.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="status" id="dataStatus">Place <code>analysis_data.js</code> beside this HTML file. It is generated by <code>marvel_network_analysis.py</code>.</div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="shell">Social Graphs &amp; Interactions · Marvel network builder</footer>
+
+  <script src="analysis_data.js"></script>
+  <script>
+    const fmt = (n, d = 3) => Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
+    const escapeHtml = value => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+
+    function emptyChart(target, message) {
+      document.getElementById(target).innerHTML = `<div class="status">${message}</div>`;
+    }
+
+    function barChart(target, rows) {
+      if (!rows?.length) return emptyChart(target, 'No removal results available.');
+      const width = 940, height = 390, left = 210, right = 30, top = 18, bottom = 42;
+      const max = Math.max(...rows.map(d => d.drop), 1);
+      const band = (height - top - bottom) / rows.length;
+      const plotW = width - left - right;
+      const bars = rows.map((d, i) => {
+        const y = top + i * band + band * .17;
+        const w = d.drop / max * plotW;
+        return `<text x="${left - 12}" y="${y + band * .47}" text-anchor="end" font-size="13" fill="#4b576a">${escapeHtml(d.character)}</text>
+          <rect x="${left}" y="${y}" width="${w}" height="${band * .66}" rx="5" fill="#2864dc" opacity="${.95 - i * .035}" />
+          <text x="${left + w + 8}" y="${y + band * .47}" font-size="12" fill="#4b576a">${fmt(d.drop, 0)}</text>`;
+      }).join('');
+      document.getElementById(target).innerHTML = `<svg viewBox="0 0 ${width} ${height}" aria-hidden="true">${bars}<line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" stroke="#cdd6e3"/><text x="${left + plotW/2}" y="${height-8}" text-anchor="middle" font-size="13" fill="#687386">Drop in giant component size</text></svg>`;
+    }
+
+    function lineChart(target, series) {
+      if (!series?.betweenness?.length) return emptyChart(target, 'No cumulative-removal results available.');
+      const width = 940, height = 390, left = 62, right = 25, top = 20, bottom = 52;
+      const all = [...series.betweenness, ...series.degree, ...series.random_mean];
+      const xMax = Math.max(...all.map(d => d.removed), 1);
+      const yMax = Math.max(...all.map(d => d.giant_component), 1);
+      const x = v => left + v / xMax * (width-left-right);
+      const y = v => top + (1-v/yMax) * (height-top-bottom);
+      const path = arr => arr.map((d,i) => `${i?'L':'M'} ${x(d.removed).toFixed(2)} ${y(d.giant_component).toFixed(2)}`).join(' ');
+      const grid = [0,.25,.5,.75,1].map(t => `<line x1="${left}" y1="${y(t*yMax)}" x2="${width-right}" y2="${y(t*yMax)}" stroke="#e4e9f0"/><text x="${left-10}" y="${y(t*yMax)+4}" text-anchor="end" font-size="12" fill="#687386">${fmt(t*yMax,0)}</text>`).join('');
+      document.getElementById(target).innerHTML = `<svg viewBox="0 0 ${width} ${height}" aria-hidden="true">${grid}
+        <path d="${path(series.betweenness)}" fill="none" stroke="#2864dc" stroke-width="4"/>
+        <path d="${path(series.degree)}" fill="none" stroke="#ef8b32" stroke-width="4"/>
+        <path d="${path(series.random_mean)}" fill="none" stroke="#23a07a" stroke-width="4" stroke-dasharray="7 7"/>
+        <line x1="${left}" y1="${top}" x2="${left}" y2="${height-bottom}" stroke="#bfc9d8"/><line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" stroke="#bfc9d8"/>
+        <text x="${(left+width-right)/2}" y="${height-10}" text-anchor="middle" font-size="13" fill="#687386">Characters removed</text>
+        <text transform="translate(17 ${(top+height-bottom)/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="#687386">Giant component size</text></svg>`;
+    }
+
+    function render(data) {
+      const b = data.key_results.highest_betweenness;
+      const d = data.key_results.most_damaging;
+      const same = data.key_results.same_character;
+      document.getElementById('topBetweenness').textContent = b.character;
+      document.getElementById('topBetweennessNote').textContent = `Score: ${fmt(b.betweenness, 5)}`;
+      document.getElementById('topDamage').textContent = d.character;
+      document.getElementById('topDamageNote').textContent = `${fmt(d.drop,0)} nodes · ${fmt(d.relative_drop*100,2)}%`;
+      document.getElementById('sameCharacter').textContent = same ? 'Yes' : 'No';
+      document.getElementById('sameCharacterNote').textContent = same ? 'Both measures identify the same bridge' : 'The measures capture different roles';
+      document.getElementById('networkSummary').textContent = `Analysed ${fmt(data.network.nodes,0)} characters and ${fmt(data.network.edges,0)} connections in the giant component.`;
+      document.getElementById('findingText').textContent = same
+        ? `${b.character} has the highest betweenness and also causes the largest immediate fragmentation. In this network, shortest-path brokerage is a strong signal of structural dependency.`
+        : `${b.character} has the highest betweenness, while ${d.character} causes the largest immediate fragmentation. The difference shows that appearing on many shortest paths is not identical to being irreplaceable.`;
+      document.getElementById('resultsBody').innerHTML = data.top_removals.map(r => `<tr><td><strong>${escapeHtml(r.character)}</strong></td><td>${fmt(r.drop,0)}</td><td>${fmt(r.relative_drop*100,2)}%</td><td>${fmt(r.betweenness,5)}</td><td>${fmt(r.betweenness_rank,0)}</td></tr>`).join('');
+      document.getElementById('dataStatus').style.display = 'none';
+      barChart('damageChart', data.top_removals);
+      lineChart('robustnessChart', data.robustness);
+    }
+
+    if (window.MARVEL_ANALYSIS) render(window.MARVEL_ANALYSIS);
+    else {
+      emptyChart('damageChart', 'Run the Python file to generate the real chart.');
+      emptyChart('robustnessChart', 'Run the Python file to generate the real chart.');
+    }
+  </script>
+</body>
+</html>
